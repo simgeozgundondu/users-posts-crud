@@ -24,7 +24,7 @@
 .hero-subtitle {
   font-size: var(--font-size-xl);
   color: var(--text-secondary);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-6);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-relaxed);
   max-width: 600px;
@@ -49,9 +49,6 @@
   font-weight: var(--font-weight-medium);
 }
 
-.navigation-section {
-  margin-top: var(--space-12);
-}
 
 .navigation-title {
   font-size: var(--font-size-2xl);
