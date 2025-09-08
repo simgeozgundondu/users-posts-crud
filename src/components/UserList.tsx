@@ -54,14 +54,11 @@ const UserList = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Name validation
     if (!isValidName(formData.name)) {
       setError('Name can only contain letters and spaces');
       return;
     }
-    
-    // Email validation
+  
     if (!isValidEmail(formData.email)) {
       setError('Please enter a valid email address');
       return;
