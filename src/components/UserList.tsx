@@ -42,9 +42,31 @@ const UserList = () => {
     }
   };
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidName = (name: string) => {
+    const nameRegex = /^[a-zA-ZğüşıöçĞÜŞİÖÇ\s]+$/;
+    return nameRegex.test(name.trim());
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Name validation
+    if (!isValidName(formData.name)) {
+      setError('Name can only contain letters and spaces');
+      return;
+    }
+    
+    // Email validation
+    if (!isValidEmail(formData.email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    
     try {
       if (editingUser) {
         const updatedUser = await userApi.update({
@@ -144,6 +166,8 @@ const UserList = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    pattern="[a-zA-ZğüşıöçĞÜŞİÖÇ\s]+"
+                    title="Name can only contain letters and spaces"
                     placeholder="Enter full name"
                   />
                 </div>
@@ -168,6 +192,8 @@ const UserList = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
+                    pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                    title="Please enter a valid email address (e.g., user@example.com)"
                     placeholder="Enter email address"
                   />
                 </div>
