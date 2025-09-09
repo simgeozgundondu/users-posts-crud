@@ -58,12 +58,12 @@ const UserList = () => {
       setError('Name can only contain letters and spaces');
       return;
     }
-  
+
     if (!isValidEmail(formData.email)) {
       setError('Please enter a valid email address');
       return;
     }
-    
+
     try {
       if (editingUser) {
         const updatedUser = await userApi.update({
@@ -131,7 +131,7 @@ const UserList = () => {
             </h1>
           </div>
           <div className="page-actions">
-            <button 
+            <button
               className="add-user-btn"
               onClick={() => setShowForm(true)}
             >
@@ -249,29 +249,27 @@ const UserList = () => {
                       </td>
                       <td>
                         <div className="user-actions">
-                          <button 
-                            onClick={() => navigate(`/posts?userId=${user.id}`)} 
+                          <button
+                            onClick={() => navigate(`/posts?userId=${user.id}`)}
                             className="action-btn view-posts-btn"
                             title="View Posts"
                           >
                             <i className="fi fi-rr-document"></i>
                             <span>View Posts</span>
                           </button>
-                          <button 
-                            onClick={() => handleEdit(user)} 
+                          <button
+                            onClick={() => handleEdit(user)}
                             className="action-btn edit-btn"
                             title="Edit User"
                           >
                             <i className="fi fi-rr-edit"></i>
-                            <span>Edit</span>
                           </button>
-                          <button 
-                            onClick={() => handleDelete(user.id)} 
+                          <button
+                            onClick={() => handleDelete(user.id)}
                             className="action-btn delete-btn"
                             title="Delete User"
                           >
                             <i className="fi fi-rr-trash"></i>
-                            <span>Delete</span>
                           </button>
                         </div>
                       </td>
@@ -279,18 +277,18 @@ const UserList = () => {
                   ))}
                 </tbody>
               </table>
-              
+
               {/* Pagination */}
               {totalPages > 1 && (
                 <div className="pagination">
-                  <button 
+                  <button
                     className="pagination-btn"
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
                   >
                     Previous
                   </button>
-                  
+
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                     <button
                       key={page}
@@ -300,8 +298,8 @@ const UserList = () => {
                       {page}
                     </button>
                   ))}
-                  
-                  <button 
+
+                  <button
                     className="pagination-btn"
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
@@ -325,22 +323,22 @@ const UserList = () => {
                     <span className="user-card-id">#{user.id}</span>
                   </div>
                   <div className="user-card-actions">
-                    <Link 
-                      to={`/posts?userId=${user.id}`} 
+                    <Link
+                      to={`/posts?userId=${user.id}`}
                       className="action-btn view-posts-btn"
                     >
                       <i className="fi fi-rr-document"></i>
                       View Posts
                     </Link>
-                    <button 
-                      onClick={() => handleEdit(user)} 
+                    <button
+                      onClick={() => handleEdit(user)}
                       className="action-btn edit-btn"
                     >
                       <i className="fi fi-rr-edit"></i>
                       Edit
                     </button>
-                    <button 
-                      onClick={() => handleDelete(user.id)} 
+                    <button
+                      onClick={() => handleDelete(user.id)}
                       className="action-btn delete-btn"
                     >
                       <i className="fi fi-rr-trash"></i>

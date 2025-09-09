@@ -13,11 +13,11 @@ const PostList = () => {
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [searchParams] = useSearchParams();
   const [filterUserId, setFilterUserId] = useState<number | null>(null);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
-  
+
   const [formData, setFormData] = useState<CreatePostData>({
     userId: 1,
     title: '',
@@ -36,15 +36,15 @@ const PostList = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const [postsData, usersData] = await Promise.all([
         postApi.getAll(),
         userApi.getAll()
       ]);
-      
+
       setPosts(postsData);
       setUsers(usersData);
-      
+
       // Set default userId for new posts
       if (usersData.length > 0) {
         setFormData(prev => ({ ...prev, userId: usersData[0].id }));
@@ -62,7 +62,7 @@ const PostList = () => {
     return user ? user.name : `User ${userId}`;
   };
 
-  const filteredPosts = filterUserId 
+  const filteredPosts = filterUserId
     ? posts.filter(post => post.userId === filterUserId)
     : posts;
 
@@ -181,14 +181,14 @@ const PostList = () => {
           <div className="page-title-section">
             <h1 className="page-title">
               <i className="fi fi-rr-document"></i>
-              {filterUserId 
+              {filterUserId
                 ? `Total posts (${filteredPosts.length})`
                 : `Total Posts (${posts.length})`
               }
             </h1>
           </div>
           <div className="page-actions">
-            <button 
+            <button
               className="add-post-btn"
               onClick={() => setShowForm(true)}
             >
@@ -198,13 +198,13 @@ const PostList = () => {
           </div>
         </div>
 
-        
+
 
         {filterUserId && (
           <div className="filter-info">
             <p>
               <i className="fi fi-rr-filter"></i>
-              Showing posts by <strong>{getUserName(filterUserId)}</strong> 
+              Showing posts by <strong>{getUserName(filterUserId)}</strong>
             </p>
             <button onClick={clearFilter} className="clear-filter-btn">
               Show All Posts
@@ -283,8 +283,8 @@ const PostList = () => {
             <i className="fi fi-rr-document-add"></i>
             <h3>No Posts Found</h3>
             <p>
-              {filterUserId 
-                ? `No posts found for ${getUserName(filterUserId)}.` 
+              {filterUserId
+                ? `No posts found for ${getUserName(filterUserId)}.`
                 : 'Add your first post to get started!'
               }
             </p>
@@ -306,25 +306,23 @@ const PostList = () => {
                       </div>
                     </div>
                     <div className="post-actions">
-                      <button 
-                        onClick={() => handleEdit(post)} 
+                      <button
+                        onClick={() => handleEdit(post)}
                         className="action-btn edit-btn"
                         title="Edit Post"
                       >
                         <i className="fi fi-rr-edit"></i>
-                        <span>Edit</span>
                       </button>
-                      <button 
-                        onClick={() => handleDelete(post.id)} 
+                      <button
+                        onClick={() => handleDelete(post.id)}
                         className="action-btn delete-btn"
                         title="Delete Post"
                       >
                         <i className="fi fi-rr-trash"></i>
-                        <span>Delete</span>
                       </button>
                     </div>
                   </div>
-                  
+
                   <div className="post-card-content">
                     <h3 className="post-card-title">{post.title}</h3>
                     <p className="post-card-body">{post.body}</p>
@@ -340,7 +338,7 @@ const PostList = () => {
         {totalPages > 1 && (
           <div className="pagination-container">
             <div className="pagination">
-              <button 
+              <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className="pagination-btn"
@@ -348,7 +346,7 @@ const PostList = () => {
                 <i className="fi fi-rr-angle-left"></i>
                 Previous
               </button>
-              
+
               {getVisiblePages().map((page, index) => (
                 page === '...' ? (
                   <span key={`ellipsis-${index}`} className="pagination-ellipsis">
@@ -364,8 +362,8 @@ const PostList = () => {
                   </button>
                 )
               ))}
-              
-              <button 
+
+              <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className="pagination-btn"
